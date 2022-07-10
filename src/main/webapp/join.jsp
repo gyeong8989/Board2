@@ -1,3 +1,5 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,6 +12,26 @@
 <script type="text/javascript" src="check.js"></script>
 
 <jsp:include page="header.jsp"/>
+
+<%
+Connection conn = null; // int a = 0 이랑 같다
+Statement stmt = null;
+String custno = "";
+
+try{
+	conn = Util.getConnection(); //DB연결 해줌 
+	stmt = conn.createStatemtnt(); //sql 실행하기 위한 변수 생성
+	String sql = "SELECT MAX(custno)+1 custno FROM member_tbl_02";
+	ResultSet rs = stmt.executeQuery(sql); // stmt 통해서 sql 실행 결과
+	
+}
+
+catch(Exception e){
+	e.printStackTrace();
+}
+
+%>
+
 	<section style=" position: fixed; top : 60px; width: 100%; height: 100%;
 	background-color: lightgray">
 	<h2 style="text-align: center"><b>쇼핑몰 회원 등록</b></h2><br>
